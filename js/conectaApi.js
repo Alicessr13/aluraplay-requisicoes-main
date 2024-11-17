@@ -7,16 +7,25 @@ async function listaVideos() {
     return conexaoConvertida;
 }
 
-async function criaVideo() {
+async function criaVideo(titulo, descricao, url, imagem) {
     const conexao = await fetch("http://localhost:3000/videos", {
         method: "POST", //metodo
         headers: {
             "Content-type": "application/json" //especifica o tipo de arquivo que está sendo enviado ou recebido
         },
-        body:
-    })
+        body: JSON.stringify({ //corpo da requisição, enviando um objeto com valores, stringify transforma em string o que está sendo enviado
+            titulo: titulo,
+            descricao: `${descricao} mil visualizações`,
+            url: url,
+            imagem: imagem
+        })
+    });
+
+    const conexaoConvertida = conexao.json();
+    return conexaoConvertida;
 }
 
 export const conectaApi = {
-    listaVideos
+    listaVideos,
+    criaVideo
 }
